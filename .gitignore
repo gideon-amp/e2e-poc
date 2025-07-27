@@ -35,12 +35,10 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
-# Android build artifacts
-!modules/quantum-crypto/android/
+# Quantum crypto module build artifacts
 modules/quantum-crypto/android/build/
-android/
-
-# iOS build artifacts and frameworks
-!modules/quantum-crypto/ios/
 modules/quantum-crypto/ios/liboqs.xcframework/
-ios/
+
+# Root level Expo generated ios and android folder
+/ios/
+/android/

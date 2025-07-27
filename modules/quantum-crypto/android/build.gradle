@@ -1,0 +1,78 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+group = 'expo.modules.quantumcrypto'
+version = '0.1.0'
+
+def expoModulesCorePlugin = new File(project(":expo-modules-core").projectDir.absolutePath, "ExpoModulesCorePlugin.gradle")
+if (expoModulesCorePlugin.exists()) {
+  apply from: expoModulesCorePlugin
+  applyKotlinExpoModulesCorePlugin()
+}
+
+// Simple helper that allows the root project to override versions declared by this library.
+ext.safeExtGet = { prop, fallback ->
+  rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
+
+android {
+  compileSdkVersion safeExtGet('compileSdkVersion', 34)
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+  }
+
+  kotlinOptions {
+    jvmTarget = "17"
+  }
+
+  namespace "expo.modules.quantumcrypto"
+  
+  defaultConfig {
+    minSdkVersion safeExtGet('minSdkVersion', 21)
+    targetSdkVersion safeExtGet('targetSdkVersion', 34)
+    versionCode 1
+    versionName "1.0.0"
+  }
+  
+  buildTypes {
+    release {
+      minifyEnabled false
+    }
+  }
+  
+  lintOptions {
+    abortOnError false
+  }
+  
+  // Ensure we can use coroutines
+  packagingOptions {
+    pickFirst "**/kotlin-tooling-metadata.json"
+    pickFirst "META-INF/kotlinx-coroutines-core.kotlin_module"
+  }
+}
+
+repositories {
+  google()
+  mavenCentral()
+  maven { url 'https://www.jitpack.io' }
+}
+
+dependencies {
+  implementation project(':expo-modules-core')
+  
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10"
+  
+  // Coroutines for async operations
+  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
+  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+  
+  // BouncyCastle for post-quantum cryptography
+  implementation 'org.bouncycastle:bcprov-jdk18on:1.76'
+  implementation 'org.bouncycastle:bcpkix-jdk18on:1.76'
+  implementation 'org.bouncycastle:bcpg-jdk18on:1.76'
+  
+  testImplementation 'junit:junit:4.13.2'
+  testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
+}

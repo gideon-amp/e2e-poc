@@ -2,6 +2,8 @@
 
 A Proof of Concept (POC) React Native Expo application demonstrating quantum-resistant end-to-end encryption for secure messaging using NIST-standardized post-quantum cryptography algorithms.
 
+<img width="1290" height="2796" alt="Simulator Screenshot - iPhone 15 Pro Max - 2025-07-27 at 19 48 28" src="https://github.com/user-attachments/assets/8829fa99-fe0d-476f-bf9a-a593836fc333" />
+
 ## 🔐 Overview
 
 This application implements a hybrid quantum-resistant cryptographic system that combines:

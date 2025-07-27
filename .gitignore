@@ -34,3 +34,11 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# Android build artifacts
+modules/quantum-crypto/android/build/
+android/
+
+# iOS build artifacts and frameworks
+modules/quantum-crypto/ios/liboqs.xcframework/
+ios/
